@@ -49,7 +49,7 @@ export function About() {
         {/* Vision & Mission */}
         <div className="mt-24 grid md:grid-cols-2 gap-6">
           <Reveal>
-            <article className="relative h-full p-8 md:p-10 rounded-sm bg-white/[0.02] glow-border overflow-hidden">
+            <article id="vision" className="relative h-full p-8 md:p-10 rounded-sm bg-white/[0.02] glow-border overflow-hidden">
               <img
                 src={visionBg}
                 alt=""
@@ -77,7 +77,7 @@ export function About() {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <article className="relative h-full p-8 md:p-10 rounded-sm bg-white/[0.02] glow-border overflow-hidden">
+            <article id="mission" className="relative h-full p-8 md:p-10 rounded-sm bg-white/[0.02] glow-border overflow-hidden">
               <img
                 src={missionBg}
                 alt=""

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -14,6 +14,7 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("home");
   const [open, setOpen] = useState(false);
+  const pendingScrollId = useRef<string | null>(null);
 
   useEffect(() => {
     const onScroll = () => {
@@ -31,9 +32,30 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    if (open || !pendingScrollId.current) {
+      return;
+    }
+
+    const targetId = pendingScrollId.current;
+    const timeoutId = window.setTimeout(() => {
+      window.requestAnimationFrame(() => {
+        document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+      pendingScrollId.current = null;
+    }, 320);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [open]);
+
   const go = (id: string) => {
+    if (open) {
+      pendingScrollId.current = id;
+      setOpen(false);
+      return;
+    }
+
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-    setOpen(false);
   };
 
   return (

@@ -203,6 +203,7 @@ function Index() {
           bg="muted"
         />
         <InfoCardGrid
+          id="services"
           eyebrow="Services"
           title="We Handle It from Source to Delivery"
           items={services}
